@@ -17,7 +17,7 @@ class System:
         self.obstacles_sprites = pygame.sprite.Group()
         # cản đường đạn
         self.bulletproof = pygame.sprite.Group()
-        # Nhóm các đối tượng có thể tấn công
+        # Nhóm các đối tượng tấn công
         self.attack_sprites = pygame.sprite.Group()
         # Nhóm có thể tấn công
         self.attackable_sprites = pygame.sprite.Group()
@@ -40,7 +40,6 @@ class System:
         map_data = {
             'wall': load_map('./Assets/Map/Map_Map.csv'),
             'enemy': load_map('./Assets/Map/Map_Object.csv'),
-            'linewin': load_map('./Assets/Map/Map_linewin.csv')
         }
 
         for style, layout in map_data.items():
@@ -50,12 +49,13 @@ class System:
                         x = j * TILESIZE
                         y = i * TILESIZE
                         if style == 'wall':
-                            Tile(pos=(x, y), 
-                                 groups=[self.visible_sprites, self.obstacles_sprites, self.bulletproof])
-                        if style == 'linewin':
-                            Tile(pos=(x, y), 
-                                 groups=[self.visible_sprites, self.obstacles_sprites, self.bulletproof], 
-                                 isFinishLine=True)
+                            if layout[i, j] != 3:
+                                Tile(pos=(x, y), 
+                                    groups=[self.visible_sprites, self.obstacles_sprites, self.bulletproof])
+                            else:
+                                Tile(pos=(x, y), 
+                                    groups=[self.visible_sprites, self.obstacles_sprites, self.bulletproof], 
+                                    isFinishLine=True)
                         if style == 'enemy':
                             if layout[i, j] == 5:
                                 self.enemy = Enemy(pos=(x, y),

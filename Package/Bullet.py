@@ -59,7 +59,9 @@ class Bullet(pygame.sprite.Sprite):
             else:
                 self.rect.y += self.speed_bullet
         # Xử lý đường đạn khi đến một khoảng cách nào đó
-        if abs(self.player.rect.y - self.rect.y) >= self.player.range_attack * TILESIZE or abs(self.player.rect.x - self.rect.x) >= self.player.range_attack * TILESIZE:
+        bullet_vec = pygame.math.Vector2(self.rect.center)
+        player_vec = pygame.math.Vector2(self.player.rect.center)
+        if (bullet_vec - player_vec).magnitude() >= self.player.range_attack * TILESIZE:
             self.kill()
 
     def update(self):

@@ -1,4 +1,3 @@
-from xml.dom.pulldom import CHARACTERS
 import numpy as np
 
 # Thiết lập chung
