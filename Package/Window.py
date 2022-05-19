@@ -1,7 +1,7 @@
 import pygame
 import sys
 import Package.CONFIG as CONFIG
-from Package.Level import Level
+from Package.System import System
 
 
 class Window:
@@ -12,7 +12,7 @@ class Window:
         display_size = (CONFIG.WIDTH, CONFIG.HEIGHT)
         self.screen = pygame.display.set_mode(display_size)
         self.clock = pygame.time.Clock()
-        self.level = Level()
+        self.level = System()
 
     def __call__(self):
         while True:
@@ -23,5 +23,7 @@ class Window:
                     sys.exit()
                     
             self.screen.fill(CONFIG.BLACK)
+            if self.level.new_game:
+                self.level = System()
             self.level.run()
             pygame.display.update()

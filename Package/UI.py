@@ -36,31 +36,20 @@ class UI:
                          text_rect.inflate(20, 10))
         self.display_surface.blit(text_surf, text_rect)
 
-    def show_label_die(self, cooldown):
-        self.font_label = pygame.font.Font(UI_FONT, 160)
-        text_surf = self.font_label.render('You Died', False, (255, 100, 100))
-        x = self.display_surface.get_size()[0] // 2
-        y = self.display_surface.get_size()[1] // 2
-        text_rect = text_surf.get_rect(center=(x, y-50))
-        pygame.draw.rect(self.display_surface, UI_BG_COLOR,
-                         text_rect.inflate(1280, 10))
-        self.display_surface.blit(text_surf, text_rect)
-
-        self.show_content(cooldown+1, (255, 100, 100))
-
     def show_content(self, content, color):
-        self.font_label_cooldown = pygame.font.Font(UI_FONT, 80)
-        time_down_surf = self.font_label_cooldown.render(f'{content}', False, color)
+        self.font_label_cooldown = pygame.font.Font(UI_FONT, 60)
+        time_down_surf = self.font_label_cooldown.render(
+            f'{content}', False, color)
         x = self.display_surface.get_size()[0] // 2
         y = self.display_surface.get_size()[1] // 2
-        text_rect_time = time_down_surf.get_rect(center=(x, y+80))
+        text_rect_time = time_down_surf.get_rect(center=(x, y+70))
         pygame.draw.rect(self.display_surface, UI_BG_COLOR,
                          text_rect_time.inflate(1280, 10))
         self.display_surface.blit(time_down_surf, text_rect_time)
 
-    def show_label_win(self):
+    def show_label(self, color, content, content_sub):
         self.font_label = pygame.font.Font(UI_FONT, 160)
-        text_surf = self.font_label.render('You Won', True, (255, 255, 100))
+        text_surf = self.font_label.render(content, False, color)
         x = self.display_surface.get_size()[0] // 2
         y = self.display_surface.get_size()[1] // 2
         text_rect = text_surf.get_rect(center=(x, y-50))
@@ -68,7 +57,19 @@ class UI:
                          text_rect.inflate(1280, 10))
         self.display_surface.blit(text_surf, text_rect)
 
-        self.show_content('press ESC to exits', (255, 255, 100))
+        self.show_content(content_sub, color)
+
+    # def show_label_win(self, cooldown, color):
+    #     self.font_label = pygame.font.Font(UI_FONT, 160)
+    #     text_surf = self.font_label.render('You Won', True, color)
+    #     x = self.display_surface.get_size()[0] // 2
+    #     y = self.display_surface.get_size()[1] // 2
+    #     text_rect = text_surf.get_rect(center=(x, y-50))
+    #     pygame.draw.rect(self.display_surface, UI_BG_COLOR,
+    #                      text_rect.inflate(1280, 10))
+    #     self.display_surface.blit(text_surf, text_rect)
+
+    #     self.show_content(content, (255, 255, 100))
 
     def display(self, player, count_die):
         self.show_bar(

@@ -1,3 +1,4 @@
+from xml.dom.pulldom import CHARACTERS
 import numpy as np
 
 # Thiết lập chung
@@ -18,10 +19,10 @@ UI_FONT_SIZE = 18
 UI_BG_COLOR = '#222222'
 UI_BORDER_COLOR = '#111111'
 
+BULLET_COLOR = (255, 255, 255)
 # UI COLOR
 HEALTH_COLOR = 'red'
 AMMO_COLOR = 'gold'
-
 # Load dữ liệu map
 
 
@@ -29,7 +30,8 @@ def load_map(path):
     map_data = np.genfromtxt(path, delimiter=',')
     return map_data
 
-
+#Character
+CHARACTER_COLOR = (0, 0, 255)
 player_stats = {
     'health': 100,
     'number_ammo': 30,

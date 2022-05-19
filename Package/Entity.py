@@ -36,6 +36,7 @@ class Entity(pygame.sprite.Sprite):
                     if self.direction.y < 0:
                         self.hitbox.top = sprite.hitbox.bottom 
                     if sprite.sprite_type == 'finish_line':
+                        self.new_game_delay = pygame.time.get_ticks()
                         self.finished = True
     
     def wave_value(self):

@@ -1,4 +1,6 @@
+from os import stat
 import pygame
+from Package.CONFIG import *
 
 
 class Bullet(pygame.sprite.Sprite):
@@ -6,7 +8,7 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, player, groups, bulletproof, enemy):
         super().__init__(groups)
         self.sprite_type = 'bullet'
-        direction = player.status
+        direction = player.bullet_direction
         self.direction = direction
         self.speed_bullet = 25
         self.create_bullet(player, direction)
@@ -18,7 +20,7 @@ class Bullet(pygame.sprite.Sprite):
     def create_bullet(self, player, direction):
         if direction == 'right' or direction == 'left':
             self.image = pygame.Surface((10, 5))
-            self.image.fill((255, 255, 255))
+            self.image.fill(BULLET_COLOR)
             if direction == 'right':
                 x, y = player.rect.midright
                 self.rect = self.image.get_rect(midright=(x, y))
@@ -27,7 +29,7 @@ class Bullet(pygame.sprite.Sprite):
                 self.rect = self.image.get_rect(midleft=(x, y))
         else:
             self.image = pygame.Surface((5, 10))
-            self.image.fill((255, 255, 255))
+            self.image.fill(BULLET_COLOR)
             if direction == 'up':
                 x, y = player.rect.midtop
                 self.rect = self.image.get_rect(midtop=(x, y))
@@ -56,8 +58,8 @@ class Bullet(pygame.sprite.Sprite):
                 self.rect.y -= self.speed_bullet
             else:
                 self.rect.y += self.speed_bullet
-        #Xử lý đường đạn khi đến một khoảng cách nào đó
-        if abs(self.player.rect.y - self.rect.y) >= self.player.range_attack * self.player.number_ammo or abs(self.player.rect.x - self.rect.x) >= self.player.range_attack * self.player.number_ammo:
+        # Xử lý đường đạn khi đến một khoảng cách nào đó
+        if abs(self.player.rect.y - self.rect.y) >= self.player.range_attack * TILESIZE or abs(self.player.rect.x - self.rect.x) >= self.player.range_attack * TILESIZE:
             self.kill()
 
     def update(self):

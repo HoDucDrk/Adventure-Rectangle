@@ -27,25 +27,29 @@ class Enemy(Entity):
         self.speed = enemy_stats[key]['speed']
         self.attack_radius = enemy_stats[key]['attack_radius']
         self.notice_radius = enemy_stats[key]['notice_radius']
-
+        #get sát thương nhận được từ player
         self.damage_player = damage_player
 
-        # invincibility timer
+        #Thời gian miến nhiễm nhận dame từ player
         self.vulnerable = True
         self.hit_time = None
         self.invincibility_duration = 300
 
     def get_player_distance_direction(self, player):
+        '''
+        Tìm khoảng cách của kẻ địch đến player
+        '''
         enemy_vec = pygame.math.Vector2(self.rect.center)
         player_vec = pygame.math.Vector2(player.rect.center)
         distance = (player_vec - enemy_vec)
         Euclid_magniture = distance.magnitude() #Trả về độ lớn của vector
+        #normalize trả về vector cùng hướng có độ lớn bằng 1
         self.direction = distance.normalize() if Euclid_magniture > 0 else pygame.math.Vector2()
         return Euclid_magniture, self.direction        
 
 
     def get_status(self, player):
-        distance, direction = self.get_player_distance_direction(player)
+        distance, _ = self.get_player_distance_direction(player)
 
         if distance <= self.attack_radius:
             self.status = 'attack'
@@ -63,6 +67,10 @@ class Enemy(Entity):
             self.image.set_alpha(255)
 
     def actions(self, player):
+        '''
+        Set hành động cho kẻ địch
+        Chú ý, tấn công và di chuyển
+        '''
         if player.health <= 0:
             self.notice = False
         if self.status == 'attack':
